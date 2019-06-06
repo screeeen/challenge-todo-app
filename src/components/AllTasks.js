@@ -3,36 +3,38 @@ import { Route, Redirect } from 'react-router';
 import { Link } from "react-router-dom";
 import calls from './../service/calls';
 import TaskCell from './TaskCell';
-
+import AddTask from './AddTask';
 
 class AllTasks extends Component {
   constructor(props) {
     super(props);
     console.log("all tasks props ", props);
     this.state = {
-      tasks:[],
-      title:'',
-      description:''
+      tasks: [],
+      title: '',
+      description: ''
     }
     console.log("all tasks this state ", this.state);
   }
 
   componentDidMount() {
+    this.refreshTasks();
+  }
+
+  refreshTasks() {
     calls.getAllTasks()
       .then(res => {
         const tasks = res.data;
-        console.log('get tasks did mount:',tasks);
+        console.log('get tasks did mount:', tasks);
         this.setState({ tasks });
       })
   }
-
-
 
   generateTaskList = () => {
     return this.state.tasks.slice(0).reverse().map((oneTask, i) => {
       const { title, _id } = oneTask;
       return (
-        <TaskCell 
+        <TaskCell
           key={i}
           title={title}
           _id={_id}
@@ -41,13 +43,14 @@ class AllTasks extends Component {
     })
   }
 
-  
+
 
   render() {
     return (
       <div>
-      <h1>TASKS</h1>
-      {this.generateTaskList()}
+        <h1> - TASKS - </h1>
+        {this.generateTaskList()}
+        <AddTask getTasks={this.refreshTasks} />
       </div>
     )
   }
