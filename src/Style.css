@@ -1,0 +1,17 @@
+
+
+.navbar{
+  background-color: #ccc;
+  left:0;
+  top:0;
+  position: absolute;
+}
+
+.footer{
+  background-color: #ccc;
+  left:0;
+  bottom:0;
+  position: absolute;
+}
+
+
